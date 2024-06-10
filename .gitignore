@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+
+# Emacs
+*.org
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*

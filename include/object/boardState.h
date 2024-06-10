@@ -2,7 +2,7 @@
 #define BOARDSTATE_H_
 
 #include "fen.h"
-#include <set>
+#include <map>
 #include <string>
 
 #define Move std::string
@@ -13,7 +13,7 @@ private:
   const FenElement *fen;
 
   // The list of next move and a pointer to the associated BoardState
-  std::set<std::string, BoardState *> next_move;
+  std::map<std::string, BoardState *> next_move;
 
   // The evaluation of the current board state in advantage for the white player
   float evaluation;
@@ -26,6 +26,34 @@ public:
    * @throws invalid_argument If the fen does not respect the FEN format
    */
   BoardState(const FenElement *fen);
+
+  /**
+   * Initialize a BoardState with the state of the board (FEN format)
+   *
+   * @param fen The state of the board in FEN format
+   * @param evaluation The evaluation of advantage for the white player
+   * @throws invalid_argument If the fen does not respect the FEN format or if
+   * evaluation does not respect the range [0,100]
+   */
+  BoardState(const FenElement *fen, const float &evaluation);
+
+  /**
+   * Initialize a BoardState with the state of the board (FEN format)
+   *
+   * @param fen Le state of the board in FEN format
+   * @throws invalid_argument If the fen does not respect the FEN format
+   */
+  BoardState(const Fen *fen);
+
+  /**
+   * Initialize a BoardState with the state of the board (FEN format)
+   *
+   * @param fen The state of the board in FEN format
+   * @param evaluation The evaluation of advantage for the white player
+   * @throws invalid_argument If the fen does not respect the FEN format or if
+   * evaluation does not respect the range [0,100]
+   */
+  BoardState(const Fen *fen, const float &evaluation);
 
   /**
    *  Add a move to the set of next move
@@ -47,6 +75,13 @@ public:
    *  @throws invalid_argument If the move does not respect the format
    * */
   int del_move(const Move &move);
+
+  /**
+   * Set the evaluation of advantage of the white player
+   * @param evaluation The evaluation of advantage for the white player
+   * @throws invalid_argument If evaluation does not respect the range [0,100]
+   */
+  void set_evaluation(const float &evaluation);
 };
 
 #endif // BOARDSTATE_H_

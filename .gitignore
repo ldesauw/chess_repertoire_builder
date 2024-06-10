@@ -41,3 +41,6 @@
 auto-save-list
 tramp
 .\#*
+
+.clangd
+.depend

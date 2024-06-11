@@ -10,13 +10,13 @@
 class BoardState {
 private:
   // The state of the board in FEN format
-  const FenElement *fen;
+  const FenEntity *_fen;
 
   // The list of next move and a pointer to the associated BoardState
-  std::map<std::string, BoardState *> next_move;
+  std::map<std::string, BoardState *> _next_move;
 
   // The evaluation of the current board state in advantage for the white player
-  float evaluation;
+  float _evaluation;
 
 public:
   /**
@@ -25,7 +25,7 @@ public:
    * @param fen Le state of the board in FEN format
    * @throws invalid_argument If the fen does not respect the FEN format
    */
-  BoardState(const FenElement *fen);
+  BoardState(const FenEntity *fen);
 
   /**
    * Initialize a BoardState with the state of the board (FEN format)
@@ -35,7 +35,7 @@ public:
    * @throws invalid_argument If the fen does not respect the FEN format or if
    * evaluation does not respect the range [0,100]
    */
-  BoardState(const FenElement *fen, const float &evaluation);
+  BoardState(const FenEntity *fen, const float &evaluation);
 
   /**
    * Initialize a BoardState with the state of the board (FEN format)

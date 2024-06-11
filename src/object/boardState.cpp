@@ -8,11 +8,11 @@
  * @param fen Le state of the board in FEN format
  * @throws invalid_argument If the fen does not respect the FEN format
  */
-BoardState::BoardState(const FenElement *fen) {
+BoardState::BoardState(const FenEntity *fen) {
   if (fen == nullptr)
-    throw new std::invalid_argument("Received wrongful pointer to FenElement");
+    throw new std::invalid_argument("Received wrongful pointer to FenEntity");
 
-  this->fen = fen;
+  this->_fen = fen;
 }
 
 /**
@@ -23,17 +23,15 @@ BoardState::BoardState(const FenElement *fen) {
  * @throws invalid_argument If the fen does not respect the FEN format or if
  * evaluation does not respect the range [0,100]
  */
-BoardState::BoardState(const FenElement *fen, const float &evaluation) {
+BoardState::BoardState(const FenEntity *fen, const float &evaluation) {
   if (fen == nullptr)
-    throw std::invalid_argument("Received wrongful pointer to FenElement");
+    throw std::invalid_argument("Received wrongful pointer to FenEntity");
 
-  if (evaluation < 0 || evaluation > 100) {
-    throw std::invalid_argument(
-        "Received wrongful evaluation : must be contained in [0,100]");
-  }
+  if (evaluation < 0 || evaluation > 100)
+    throw std::invalid_argument("Received wrongful evaluation : must be contained in [0,100]");
 
-  this->fen = fen;
-  this->evaluation = evaluation;
+  this->_fen = fen;
+  this->_evaluation = evaluation;
 }
 
 /**
@@ -42,7 +40,7 @@ BoardState::BoardState(const FenElement *fen, const float &evaluation) {
  * @param fen Le state of the board in FEN format
  * @throws invalid_argument If the fen does not respect the FEN format
  */
-BoardState::BoardState(const Fen *fen) { this->fen = FenElementBuilder(fen); }
+BoardState::BoardState(const Fen *fen) { this->_fen = FenEntityBuilder(fen); }
 
 /**
  * Initialize a BoardState with the state of the board (FEN format)
@@ -54,13 +52,11 @@ BoardState::BoardState(const Fen *fen) { this->fen = FenElementBuilder(fen); }
  */
 BoardState::BoardState(const Fen *fen, const float &evaluation) {
 
-  if (evaluation < 0 || evaluation > 100) {
-    throw std::invalid_argument(
-        "Received wrongful evaluation : must be contained in [0,100]");
-  }
+  if (evaluation < 0 || evaluation > 100)
+    throw std::invalid_argument("Received wrongful evaluation : must be contained in [0,100]");
 
-  this->fen = FenElementBuilder(fen);
-  this->evaluation = evaluation;
+  this->_fen = FenEntityBuilder(fen);
+  this->_evaluation = evaluation;
 }
 /**
  *  Add a move to the set of next move
@@ -73,8 +69,8 @@ BoardState::BoardState(const Fen *fen, const float &evaluation) {
  * */
 int BoardState::add_move(const Move &move) {
   // TODO check Move format
-  const FenElement *fenE = this->fen->play_move(move);
-  this->next_move.insert({move, new BoardState(fenE)});
+  const FenEntity *fenE = this->_fen->play_move(move);
+  this->_next_move.insert({move, new BoardState(fenE)});
   return 0;
 }
 
@@ -88,7 +84,7 @@ int BoardState::add_move(const Move &move) {
  * */
 int BoardState::del_move(const Move &move) {
   // TODO Check Move format
-  this->next_move.erase(move);
+  this->_next_move.erase(move);
   return 0;
 }
 
@@ -98,5 +94,5 @@ int BoardState::del_move(const Move &move) {
  * @throws invalid_argument If evaluation does not respect the range [0,100]
  */
 void BoardState::set_evaluation(const float &evaluation) {
-  this->evaluation = evaluation;
+  this->_evaluation = evaluation;
 }

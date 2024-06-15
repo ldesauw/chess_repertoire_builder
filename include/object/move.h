@@ -33,6 +33,14 @@ public:
    * @throws invalid_argument If the move is not in correct PGN format
    */
   MoveEntity(const Move &move);
+
+  /**
+   * Compare less operator
+   *
+   * @param a A MoveEntity to compare to
+   * @return True  if this < a, False otherwise
+   */
+  bool operator<(const MoveEntity &a);
 }
 
 #endif // MOVE_H_

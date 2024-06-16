@@ -1,9 +1,9 @@
 #ifndef FENENTITY_H_
 #define FENENTITY_H_
 
-#include <set>
-#include <string>
+#include <map>
 #include <move.h>
+#include <string>
 
 #define Fen std::string
 
@@ -20,9 +20,17 @@ private:
    * */
   FenEntity(const Fen &fen);
 
+  /**
+   * Check that a Fen have the correct format
+   *
+   * @param fen The FEN to check
+   * @throws invalid_argument If the fen is not in correct FEN format
+   */
+  void check_fen(const Fen &fen);
+
 public:
   // A cache of all Fen created
-  static std::set<Fen, FenEntity> all_fens;
+  static std::map<Fen, FenEntity *> all_fens;
 
   /**
    * Instantiate a FenEntity, add it to the set all_fens and return a pointer

@@ -16,24 +16,12 @@ void check_fen(const Fen &fen);
  * @param fen The FEN of the board
  * @throws invalid_argument If the fen is not in correct FEN format
  * */
-FenEntity::FenEntity(const Fen &fen) {
+FenEntity::FenEntity(const Fen& fen) {
   FenEntity::check_fen(fen);
   this->_fen = fen;
+    all_fens.insert({fen, this});
 }
 
-/**
- * Instantiate a FenEntity, add it to the set all_fens and return a pointer
- * toward it
- *
- * @param fen The FEN of the board
- * @return A pointer to the FenEntity stored in all_fens
- * @throws invalid_argument If the fen is not in correct FEN format
- */
-FenEntity *FenEntity::FenEntityBuilder(const Fen &fen) {
-  FenEntity *fenE = new FenEntity(fen);
-  all_fens.insert({fen, fenE});
-  return fenE;
-}
 
 /**
  * Generate the Fen of the board  obtained when playing the indicated move

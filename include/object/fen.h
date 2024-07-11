@@ -1,6 +1,5 @@
 #ifndef FENENTITY_H_
 #define FENENTITY_H_
-
 #include <map>
 #include <move.h>
 #include <string>
@@ -11,14 +10,6 @@ class FenEntity {
 private:
   // String encoding of the FEN
   const Fen _fen;
-
-  /**
-   * Build a Fen from its FEN string
-   *
-   * @param fen The FEN of the board
-   * @throws invalid_argument If the fen is not in correct FEN format
-   * */
-  FenEntity(const Fen &fen);
 
   /**
    * Check that a Fen have the correct format
@@ -32,15 +23,14 @@ public:
   // A cache of all Fen created
   static std::map<Fen, FenEntity *> all_fens;
 
+
   /**
-   * Instantiate a FenEntity, add it to the set all_fens and return a pointer
-   * toward it
+   * Build a Fen from its FEN string
    *
    * @param fen The FEN of the board
-   * @return A pointer to the FenEntity stored in all_fens
    * @throws invalid_argument If the fen is not in correct FEN format
-   */
-  FenEntity *FenEntityBuilder(const Fen &fen);
+   * */
+  FenEntity(const Fen &fen);
 
   /**
    * Generate the Fen of the board  obtained when playing the indicated move

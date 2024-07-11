@@ -41,6 +41,6 @@ public:
    * @return True  if this < a, False otherwise
    */
   bool operator<(const MoveEntity &a);
-}
+};
 
 #endif // MOVE_H_

@@ -1,22 +1,35 @@
-CXX=g++
-RM=rm -f
-CPPFLAGS=-g -I/usr/include -Wall
-LDFLAGS=
-LDLIBS=
+# Compiler
+CXX = g++
 
-NAME=chessrepbuilder
-SRCS=$(wildcard **/*.cpp)
-OBJS=$(subst .cpp,.o,$(SRCS))
+# Compiler flags
+CXXFLAGS = -Iinclude -Iinclude/object -Iinclude/utils -Wall -Wextra
 
-all: $(NAME)
+# Source files
+SRCS = $(wildcard src/*.cpp)
 
-$(NAME): $(OBJS)
-	$(CXX) $(LDFLAGS) -o $(NAME) $(OBJS) $(LDLIBS)
+# Object files
+OBJS = $(patsubst src/%.cpp, build/%.o, $(SRCS))
 
+# Executable name
+EXEC = chess_repertoire_builder
+
+# Default target
+all: $(EXEC)
+
+# Link the executable
+$(EXEC): $(OBJS)
+	$(CXX) $(OBJS) -o $@
+
+# Compile source files to object files
+build/%.o: src/%.cpp | build
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Create build directory if it does not exist
+build:
+	mkdir -p build
+
+# Clean up build files
 clean:
-	$(RM) $(OBJS)
+	rm -rf build $(EXEC)
 
-deepclean: clean
-	$(RM) $(NAME)
-
-re: clean $(NAME)
+.PHONY: all clean

@@ -42,7 +42,7 @@ BoardState::BoardState(const FenEntity *fen, const float &evaluation) {
  * @param fen Le state of the board in FEN format
  * @throws invalid_argument If the fen does not respect the FEN format
  */
-BoardState::BoardState(const Fen *fen) { this->_fen = FenEntityBuilder(fen); }
+BoardState::BoardState(const Fen *fen) { this->_fen = new FenEntity(*fen); }
 
 /**
  * Initialize a BoardState with the state of the board (FEN format)
@@ -58,7 +58,7 @@ BoardState::BoardState(const Fen *fen, const float &evaluation) {
     throw std::invalid_argument(
         "Received wrongful evaluation : must be contained in [0,100]");
 
-  this->_fen = FenEntityBuilder(fen);
+  this->_fen = new FenEntity(*fen);
   this->_evaluation = evaluation;
 }
 /**
@@ -72,7 +72,7 @@ BoardState::BoardState(const Fen *fen, const float &evaluation) {
  * */
 int BoardState::add_move(const Move &move) {
 
-  MoveEntity mvE = MoveEntity::MoveEntity(move);
+  MoveEntity mvE = MoveEntity(move);
   const FenEntity *fenE = this->_fen->play_move(mvE);
   this->_next_move.insert({mvE, new BoardState(fenE)});
   return 0;
@@ -102,7 +102,7 @@ int BoardState::add_move(const MoveEntity &move) {
  *  @throws invalid_argument If the move does not respect the format
  * */
 int BoardState::del_move(const Move &move) {
-  MoveEntity mvE = MoveEntity::MoveEntity(move);
+  MoveEntity mvE = MoveEntity(move);
   this->_next_move.erase(mvE);
   return 0;
 }
@@ -115,7 +115,7 @@ int BoardState::del_move(const Move &move) {
  *  @return 0 if the move has been deleted correctly, -1 otherwise
  *  @throws invalid_argument If the move does not respect the format
  * */
-int del_move(const MoveEntity &move) {
+int BoardState::del_move(const MoveEntity &move) {
   this->_next_move.erase(move);
   return 0;
 }

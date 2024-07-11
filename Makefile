@@ -4,14 +4,14 @@ CXX = g++
 # Compiler flags
 CXXFLAGS = -Iinclude -Iinclude/object -Iinclude/utils -Wall -Wextra
 
-# Source files
-SRCS = $(wildcard src/*.cpp)
+# Find all .cpp files in src/ and its subdirectories
+SRCS = $(shell find src -name "*.cpp")
 
-# Object files
-OBJS = $(patsubst src/%.cpp, build/%.o, $(SRCS))
+# Generate object files in build/ with the same directory structure as in src/
+OBJS = $(patsubst src/%, build/%, $(SRCS:.cpp=.o))
 
 # Executable name
-EXEC = chess_repertoire_builder
+EXEC = chessrepbuilder
 
 # Default target
 all: $(EXEC)

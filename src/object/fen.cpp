@@ -1,6 +1,8 @@
 #include "fen.h"
 #include "move.h"
 
+std::map<Fen, FenEntity *> FenEntity::all_fens;
+
 /**
  * Check that a Fen have the correct format
  *
@@ -20,7 +22,7 @@ void FenEntity::check_fen(const Fen &fen){
  * */
 FenEntity::FenEntity(const Fen& fen) : _fen(fen){
   FenEntity::check_fen(fen);
-  all_fens.insert({fen, this});
+  FenEntity::all_fens.insert({fen, this});
 }
 
 

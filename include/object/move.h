@@ -12,18 +12,18 @@ private:
   const Move _move;
 
   // Move descriptor interpreted from the description
-  const MovePart _piece;
-  const MovePart _source_file;
-  const MovePart _source_rank;
-  const MovePart _destination_file;
-  const MovePart _destination_rank;
-  const MovePart _promotion_piece;
-  const MoveSpec _isEating;
-  const MoveSpec _isCheck;
-  const MoveSpec _isMate;
-  const MoveSpec _isCastle;
-  const MoveSpec _isLongCastle;
-  const MoveSpec _isPromoting;
+  MovePart _piece;
+  MovePart _source_file;
+  MovePart _source_rank;
+  MovePart _destination_file;
+  MovePart _destination_rank;
+  MovePart _promotion_piece;
+  MoveSpec _isEating;
+  MoveSpec _isCheck;
+  MoveSpec _isMate;
+  MoveSpec _isCastle;
+  MoveSpec _isLongCastle;
+  MoveSpec _isPromoting;
 
 public:
   /**

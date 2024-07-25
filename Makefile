@@ -18,10 +18,11 @@ all: $(EXEC)
 
 # Link the executable
 $(EXEC): $(OBJS)
-	$(CXX) $(OBJS) -o $@
+	$(CXX) $(OBJS) -o  $@
 
 # Compile source files to object files
 build/%.o: src/%.cpp | build
+	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Create build directory if it does not exist

@@ -8,7 +8,9 @@
  * @throws invalid_argument If the fen is not in correct FEN format
  * @TODO
  */
-void check_fen(const Fen &fen);
+void FenEntity::check_fen(const Fen &fen){
+  return;
+}
 
 /**
  * Build a Fen from its FEN string
@@ -16,10 +18,9 @@ void check_fen(const Fen &fen);
  * @param fen The FEN of the board
  * @throws invalid_argument If the fen is not in correct FEN format
  * */
-FenEntity::FenEntity(const Fen& fen) {
+FenEntity::FenEntity(const Fen& fen) : _fen(fen){
   FenEntity::check_fen(fen);
-  this->_fen = fen;
-    all_fens.insert({fen, this});
+  all_fens.insert({fen, this});
 }
 
 
@@ -34,4 +35,7 @@ FenEntity::FenEntity(const Fen& fen) {
  * current board state
  * @TODO
  * */
-FenEntity *FenEntity::play_move(const MoveEntity &move) const;
+FenEntity *FenEntity::play_move(const MoveEntity &move) const{
+  // TODO 
+  return nullptr; 
+}

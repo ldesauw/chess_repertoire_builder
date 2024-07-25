@@ -40,7 +40,7 @@ public:
    * @param a A MoveEntity to compare to
    * @return True  if this < a, False otherwise
    */
-  bool operator<(const MoveEntity &a);
+  bool operator<(const MoveEntity &a) const;
 };
 
 #endif // MOVE_H_
